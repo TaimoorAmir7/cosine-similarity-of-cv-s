@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Similarity</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>Resume and Job Description Cosine Similarity</h2>
+        <form method="POST" enctype="multipart/form-data">
+            <label for="resumes">Upload Resumes (PDF files only):</label>
+            <input type="file" id="resumes" name="resumes" multiple>
+            
+            <label for="job_description">Job Description:</label>
+            <textarea id="job_description" name="job_description" rows="5" cols="50"></textarea>
+            
+            <input type="submit" value="Compute Similarity">
+        </form>
+
+        {% if results %}
+        <h3>Results:</h3>
+        <ul>
+            {% for resume, similarity in results %}
+            <li>
+                <strong>Resume Text (first 200 chars):</strong>
+                <span class="resume-text">{{ resume[:200] }}...</span><br>
+                <strong>Similarity:</strong> {{ similarity }}
+            </li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+</body>
+</html>
